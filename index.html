@@ -1,91 +1,78 @@
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <!-- Establece la codificación de caracteres como UTF-8 para admitir caracteres especiales en español -->
-        <meta charset="UTF-8">
-        <!-- Configura la vista para dispositivos móviles, ajustando el ancho de la página al tamaño de la pantalla del dispositivo -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Título de la página, que se mostrará en la pestaña del navegador -->
-        <title>Juego de Ley Modulativa</title>
-        
-        <style>
-            /* Estilos globales para el documento */
-            body {
-                background-color: #ffff; /* Color de fondo lavanda */
-                font-family: 'Montserrat', sans-serif; /* Fuente Montserrat para todo el texto */
-                font-weight: bold; /* Aplica negrita al texto del documento */
-                text-align: center; /* Alinea todo el contenido al centro de la página */
-            }
-            
-            /* Estilos para el cuadro que muestra el resultado de las operaciones */
-            .resultado {
-                background-color: #E6E6FA; /* Fondo lavanda */
-                font-size: 28px; /* Tamaño de fuente grande para resaltar el resultado */
-                height: 80px; /* Altura del cuadro */
-                line-height: 80px; /* Centrado vertical del texto dentro del cuadro */
-                margin: 20px; /* Espacio alrededor del cuadro de resultado */
-                border-radius: 20px; /* Bordes redondeados del cuadro */
-            }
-            
-            /* Estilos para los botones de operación */
-            .boton {
-                font-size: 16px; /* Tamaño de fuente mediano */
-                font-weight: bold; /* Negrita en el texto del botón */
-                width: 100px; /* Ancho del botón */
-                height: 60px; /* Altura del botón */
-                margin: 10px; /* Espacio entre cada botón */
-                border: none; /* Sin borde alrededor del botón */
-                border-radius: 10px; /* Bordes redondeados en cada botón */
-                cursor: pointer; /* Cambia el cursor a una mano cuando el usuario pasa el mouse por encima */
-            }
-            footer {
-            margin-top: 100px; /* Espacio entre el footer y el cuerpo */
-            padding: 20px;
-            background-color: #de0e1e; /* Rojo vivo */
-            color: white;
-            text-align: center;
-            font-size: 14px;
+<html lang="es"> <!-- Define el tipo de documento como HTML5 y establece el idioma de la página como español -->
+<head>
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8, permitiendo el uso de caracteres especiales en español -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Establece el viewport para que la página se adapte a diferentes tamaños de pantalla -->
+    <title>Juego de Ley Modulativa</title> <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    
+    <style>
+        body {
+            background-color: #ffff; /* Establece el color de fondo de la página como blanco */
+            font-family: 'Montserrat', sans-serif; /* Define la fuente utilizada en el cuerpo del documento */
+            font-weight: bold; /* Establece el grosor de la fuente como negrita */
+            text-align: center; /* Centra el texto dentro del cuerpo del documento */
         }
+        
+        .resultado {
+            background-color: #E6E6FA; /* Establece el color de fondo del área de resultado */
+            font-size: 28px; /* Define el tamaño de fuente del texto en el área de resultado */
+            height: 80px; /* Establece la altura del área de resultado */
+            line-height: 80px; /* Centra verticalmente el texto en el área de resultado */
+            margin: 20px; /* Establece un margen alrededor del área de resultado */
+            border-radius: 20px; /* Aplica bordes redondeados al área de resultado */
+        }
+        
+        .boton {
+            font-size: 16px; /* Define el tamaño de fuente de los botones */
+            font-weight: bold; /* Establece el grosor de la fuente de los botones como negrita */
+            width: 100px; /* Establece el ancho de los botones */
+            height: 60px; /* Establece la altura de los botones */
+            margin: 10px; /* Establece un margen alrededor de los botones */
+            border: none; /* Elimina el borde de los botones */
+            border-radius: 10px; /* Aplica bordes redondeados a los botones */
+            cursor: pointer; /* Cambia el cursor a un puntero al pasar sobre los botones */
+        }
+        
+        footer {
+            margin-top: 100px; /* Establece un margen superior para el pie de página */
+            padding: 20px; /* Establece un relleno interno para el pie de página */
+            background-color: #de0e1e; /* Establece el color de fondo del pie de página */
+            color: white; /* Establece el color del texto en el pie de página como blanco */
+            text-align: center; /* Centra el texto dentro del pie de página */
+            font-size: 14px; /* Define el tamaño de fuente del texto en el pie de página */
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego de Ley Modulativa</h1> <!-- Título principal de la página, que indica el nombre del juego -->
+    <div id="resultado" class="resultado">Resultado: </div> <!-- Div que mostrará el resultado de las operaciones, con una clase para aplicar estilos -->
+    <div id="botones"></div> <!-- Div donde se generarán dinámicamente los botones para las operaciones -->
 
-        </style>
-    </head>
-    <body>
-        <!-- Título principal que aparece en la parte superior de la página -->
-        <h1>Juego de Ley Modulativa</h1>
-        
-        <!-- Div para mostrar el resultado de las operaciones seleccionadas -->
-        <div id="resultado" class="resultado">Resultado: </div>
-    
-        <!-- Div donde se generarán los botones para cada operación -->
-        <div id="botones"></div>
-    </body>
-    
     <script>
-        // Función para mostrar el resultado en el cuadro de resultados
+        // Función que muestra el resultado de la operación en el div correspondiente
         function mostrarResultado(operacion, resultado, color) {
-            // Obtiene el elemento con el ID "resultado" y actualiza su contenido y color de fondo
-            const resultadoDiv = document.getElementById("resultado");
-            resultadoDiv.textContent = `${operacion} = ${resultado}`; // Muestra la operación y su resultado
-            resultadoDiv.style.backgroundColor = color; // Cambia el fondo al color especificado
+            const resultadoDiv = document.getElementById("resultado"); // Obtiene el div donde se mostrará el resultado
+            resultadoDiv.textContent = `${operacion} = ${resultado}`; // Actualiza el texto del div con la operación y su resultado
+            resultadoDiv.style.backgroundColor = color; // Cambia el color de fondo del div a color especificado
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave hacia el div del resultado
         }
     
-        // Función para oscurecer el color del botón cuando se presiona
+        // Función que oscurece el color proporcionado
         function oscurecerColor(color) {
-            // Convierte los valores RGB del color de hexadecimal a decimal
-            let r = parseInt(color.slice(1, 3), 16);
-            let g = parseInt(color.slice(3, 5), 16);
-            let b = parseInt(color.slice(5, 7), 16);
+            let r = parseInt(color.slice(1, 3), 16); // Obtiene el componente rojo del color en formato hexadecimal
+            let g = parseInt(color.slice(3, 5), 16); // Obtiene el componente verde
+            let b = parseInt(color.slice(5, 7), 16); // Obtiene el componente azul
     
-            // Resta 40 a cada componente RGB, asegurándose de que no sea menor que 0
+            // Reduce los valores de los componentes para oscurecer el color
             r = Math.max(0, r - 40);
             g = Math.max(0, g - 40);
             b = Math.max(0, b - 40);
     
-            // Devuelve el color en formato hexadecimal nuevamente
+            // Convierte los componentes de vuelta a un color hexadecimal
             return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
         }
     
-        // Array de operaciones con sus colores asignados
+        // Array que contiene pares de operaciones y sus colores asociados
         const operacionesColores = [
             [[2, 2], "#A2DFF7"], 
             [[2, 3], "#A2DFF7"], 
@@ -125,49 +112,42 @@
             [[9, 9], "#C5A3FF"]
         ];
     
-        // Selecciona el div donde se generarán los botones de operación
-        const botonesDiv = document.getElementById("botones");
+        const botonesDiv = document.getElementById("botones"); // Obtiene el div donde se agregarán los botones
     
-        // Itera sobre cada operación en la lista de operacionesColores
+        // Itera sobre las operaciones y sus colores para crear botones dinámicamente
         operacionesColores.forEach(([operacion, color]) => {
-            // Crea un botón para cada operación
-            const boton = document.createElement("button");
-            boton.textContent = `${operacion[0]} × ${operacion[1]}`; // Texto del botón
-            boton.className = 'boton'; // Clase CSS aplicada al botón
+            const boton = document.createElement("button"); // Crea un nuevo botón
+            boton.textContent = `${operacion[0]} × ${operacion[1]}`; // Establece el texto del botón
+            boton.className = 'boton'; // Asigna la clase de estilo al botón
             boton.style.backgroundColor = color; // Establece el color de fondo del botón
     
-            // Función para oscurecer el color cuando se presiona el botón
+            // Maneja el evento mousedown para oscurecer el color del botón al presionar
             boton.onmousedown = function() {
                 boton.style.backgroundColor = oscurecerColor(color);
             };
     
-            // Función para restablecer el color y mostrar el resultado cuando se suelta el botón
+            // Maneja el evento mouseup para mostrar el resultado al soltar el botón
             boton.onmouseup = function() {
-                boton.style.backgroundColor = color; // Restablece el color original
+                boton.style.backgroundColor = color; // Restaura el color original del botón
                 mostrarResultado(`${operacion[0]} × ${operacion[1]}`, operacion[0] * operacion[1], color); // Muestra el resultado
             };
     
-            // Añade el botón al div contenedor de botones
-            botonesDiv.appendChild(boton);
+            botonesDiv.appendChild(boton); // Agrega el botón al div de botones
         });
     </script>    
     
     <footer style="background-color: white; color: #002c45; padding: 20px; text-align: center; font-size: 14px;">
-        <!-- Espacio para el logo -->
-        <hr style="border: 1px solid #de0e1e; margin: 20px 0;">
+        <hr style="border: 1px solid #de0e1e; margin: 20px 0;"> <!-- Línea horizontal que separa el contenido del pie de página -->
         <div style="margin-bottom: 10px;">
-            <img src="logo_multiaplicacion.jpg" alt="Logo" style="max-width: 100px; height: auto;">
+            <img src="logo_" alt="logo_multiaplicacion.jpg" style="max-width: 100px; height: auto;"> <!-- Logo de la página -->
         </div>
-        <p>&copy; 2024 Juego de Ley Modulativa, </p>
-        <p>De los creadores de <a href="https://preguntor.github.io/" style="color: #de0e1e; text-decoration: none;">Preguntor</a></p>
-        <p>Creado por la niña bella; Maria Paula Colina</p>
-        <p>Síguenos en:
+        <p>&copy; 2024 Juego de Ley Modulativa</p> <!-- Derechos de autor -->
+        <p>De los creadores de <a href="https://preguntor.github.io/" style="color: #de0e1e; text-decoration: none;">Preguntor</a></p> <!-- Enlace a otro proyecto -->
+        <p>Creado por la niña bella; Maria Paula Colina</p> <!-- Crédito a la creadora -->
+        <p>Síguenos en: <!-- Sección para enlaces a redes sociales -->
             <a href="https://www.facebook.com/tupagina" style="color: #de0e1e; text-decoration: none; margin: 0 5px;">Facebook</a> |
             <a href="https://www.instagram.com/tupagina" style="color: #de0e1e; text-decoration: none; margin: 0 5px;">Instagram</a>
         </p>
     </footer>
-    
-    
-    
 </body>
 </html>
